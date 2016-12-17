@@ -1,6 +1,10 @@
 package cartelera.virtual.bo.impl;
 
 import java.io.Serializable;
+import java.util.List;
+
+import org.dozer.DozerBeanMapper;
+import org.dozer.Mapper;
 
 import cartelera.virtual.bo.GenericBO;
 import cartelera.virtual.dao.GenericDAO;
@@ -14,7 +18,7 @@ public class GenericBOImpl<T> implements GenericBO<T> {
 	private GenericDAO<T> dao;
 
 	public GenericBOImpl() {
-		// TODO Auto-generated constructor stub
+
 	}
 	
 	@Override
@@ -54,6 +58,12 @@ public class GenericBOImpl<T> implements GenericBO<T> {
 		
 		return this.getDao().find(id);
 	}
+	
+	@Override
+	public List<T> getAll(Class<T> entityClass) throws NotFoundException {
+		
+		return this.getDao().getAll(entityClass);
+	}
 
 	
 	public GenericDAO<T> getDao() {
@@ -63,6 +73,8 @@ public class GenericBOImpl<T> implements GenericBO<T> {
 	public void setDao(GenericDAO<T> dao) {
 		this.dao = dao;
 	}
+
+
 	
 	
 }

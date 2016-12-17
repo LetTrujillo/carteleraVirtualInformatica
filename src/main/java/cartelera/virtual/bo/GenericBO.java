@@ -1,6 +1,9 @@
 package cartelera.virtual.bo;
 
 import java.io.Serializable;
+import java.util.List;
+
+import org.dozer.Mapper;
 
 import cartelera.virtual.exception.DeleteException;
 import cartelera.virtual.exception.SaveException;
@@ -14,6 +17,6 @@ public abstract interface GenericBO<T> {
 	public boolean exists(Serializable id); 
 	public T save(T entity) throws SaveException;
 	public T find(Serializable id) throws NotFoundException;
-	
+	public List<T> getAll(Class<T> entityClass) throws NotFoundException;
 
 }
