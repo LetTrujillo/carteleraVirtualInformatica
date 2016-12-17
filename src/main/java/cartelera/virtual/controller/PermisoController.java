@@ -3,6 +3,7 @@ package cartelera.virtual.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import cartelera.virtual.bo.GenericBO;
 import cartelera.virtual.common.error.ResponseError;
 import cartelera.virtual.dto.PermisoDTO;
 import cartelera.virtual.entidades.Cartelera;
@@ -23,6 +25,12 @@ import javassist.NotFoundException;
 @RestController
 @RequestMapping("/permiso")
 public class PermisoController extends AbstractController {
+	
+	@Autowired
+	private GenericBO<Usuario> usuarioBO;
+	
+	@Autowired
+	private GenericBO<Cartelera> carteleraBO;
 	
 	@RequestMapping(value = "/addPermisos", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<?> otorgarPermisos(@RequestBody PermisoDTO permisoDTO) {
@@ -49,6 +57,22 @@ public class PermisoController extends AbstractController {
 			error.setError("PermisoController - Ocurrió un error al intentar recuperar información para asignar los permisos " + permisoDTO.getUsuario());
 			return new ResponseEntity<ResponseError>(error, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+
+	public GenericBO<Usuario> getUsuarioBO() {
+		return usuarioBO;
+	}
+
+	public void setUsuarioBO(GenericBO<Usuario> usuarioBO) {
+		this.usuarioBO = usuarioBO;
+	}
+
+	public GenericBO<Cartelera> getCarteleraBO() {
+		return carteleraBO;
+	}
+
+	public void setCarteleraBO(GenericBO<Cartelera> carteleraBO) {
+		this.carteleraBO = carteleraBO;
 	}
 		
 		

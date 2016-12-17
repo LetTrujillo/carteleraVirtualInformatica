@@ -1,9 +1,11 @@
 package cartelera.virtual.dao.impl;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -103,5 +105,12 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 
 	public void setPersistentClass(Class<T> persistentClass) {
 		this.persistentClass = persistentClass;
+	}
+
+	@Override
+	public List<T> getAll(Class<T> entityClass) throws NotFoundException {
+		
+		Query query = getEntityManager().createQuery("from " + entityClass.getName());
+		return query.getResultList();
 	}
 }

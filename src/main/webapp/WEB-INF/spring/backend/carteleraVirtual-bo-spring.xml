@@ -18,23 +18,23 @@
 		<property name="dao" ref="carteleraDAO" />
 	</bean>
 	
-	<bean id="comentarioBO" class="cartelera.virtual.bo.impl.GenericBOImpl">
-		<property name="dao" ref="comentarioDAO" />
-	</bean>
+<!-- 	<bean id="comentarioBO" class="cartelera.virtual.bo.impl.GenericBOImpl"> -->
+<!-- 		<property name="dao" ref="comentarioDAO" /> -->
+<!-- 	</bean> -->
 	
-	<bean id="contenidoPublicacionBO" class="cartelera.virtual.bo.impl.GenericBOImpl">
-		<property name="dao" ref="contenidoPublicacionDAO" />
-	</bean>
+<!-- 	<bean id="contenidoPublicacionBO" class="cartelera.virtual.bo.impl.GenericBOImpl"> -->
+<!-- 		<property name="dao" ref="contenidoPublicacionDAO" /> -->
+<!-- 	</bean> -->
 	
 	<bean id="permisoBO" class="cartelera.virtual.bo.impl.GenericBOImpl">
 		<property name="dao" ref="permisoDAO" />
 	</bean>
 	
-	<bean id="publicacionBO" class="cartelera.virtual.bo.impl.GenericBOImpl">
-		<property name="dao" ref="publicacionDAO" />
-	</bean>
+<!-- 	<bean id="publicacionBO" class="cartelera.virtual.bo.impl.GenericBOImpl"> -->
+<!-- 		<property name="dao" ref="publicacionDAO" /> -->
+<!-- 	</bean> -->
 	
-	<bean id="suscripcionBO" class="cartelera.virtual.bo.impl.SuscripcionBOImpl">
-		<property name="dao" ref="suscripcionDAO" />
-	</bean>
+<!-- 	<bean id="suscripcionBO" class="cartelera.virtual.bo.impl.SuscripcionBOImpl"> -->
+<!-- 		<property name="dao" ref="suscripcionDAO" /> -->
+<!-- 	</bean> -->
 </beans>

@@ -1,6 +1,7 @@
 package cartelera.virtual.controller;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import cartelera.virtual.bo.GenericBO;
 import cartelera.virtual.common.error.ResponseError;
 import cartelera.virtual.dto.UsuarioDTO;
 import cartelera.virtual.entidades.Alumno;
@@ -23,6 +25,9 @@ import javassist.NotFoundException;
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioController extends AbstractController{
+	
+	@Autowired
+	private GenericBO<Usuario> usuarioBO;
 	
 	/**
 	 * Recupera un usuario por id
@@ -99,6 +104,14 @@ public class UsuarioController extends AbstractController{
 			error.setError("UsuarioController - Ocurrió un error al intentar eliminar el usuario " + id);
 			return new ResponseEntity<ResponseError>(error, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+
+	public GenericBO<Usuario> getUsuarioBO() {
+		return usuarioBO;
+	}
+
+	public void setUsuarioBO(GenericBO<Usuario> usuarioBO) {
+		this.usuarioBO = usuarioBO;
 	}
 
 	

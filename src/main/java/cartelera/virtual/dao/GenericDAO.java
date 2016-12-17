@@ -1,6 +1,7 @@
 package cartelera.virtual.dao;
 
 import java.io.Serializable;
+import java.util.List;
 
 import cartelera.virtual.exception.DeleteException;
 import cartelera.virtual.exception.SaveException;
@@ -13,4 +14,5 @@ public interface GenericDAO<T> {
 	public boolean exists(Serializable id); 
 	public T save(T entity) throws SaveException;
 	public T find(Serializable id) throws NotFoundException;
+	public List<T> getAll(Class<T> entityClass) throws NotFoundException;
 }

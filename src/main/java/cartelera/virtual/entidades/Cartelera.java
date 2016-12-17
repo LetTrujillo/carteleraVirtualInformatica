@@ -1,6 +1,7 @@
 package cartelera.virtual.entidades;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -23,8 +24,9 @@ public class Cartelera implements Serializable{
 	
 	private boolean activo;
 	
-	@OneToMany(mappedBy="cartelera")
-	private List<Publicacion> publicaciones;
+//	@OneToMany(mappedBy="cartelera")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "cartelera", cascade = CascadeType.ALL)
+	private List<Publicacion> publicaciones = new ArrayList<Publicacion>();
 	
 	public Long getId() {
 		return id;

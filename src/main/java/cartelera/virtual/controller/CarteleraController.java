@@ -1,5 +1,8 @@
 package cartelera.virtual.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import cartelera.virtual.bo.GenericBO;
 import cartelera.virtual.common.error.ResponseError;
 import cartelera.virtual.dto.CarteleraDTO;
 import cartelera.virtual.entidades.Cartelera;
@@ -20,7 +24,10 @@ import javassist.NotFoundException;
 
 @RestController
 @RequestMapping("/cartelera")
-public class CarteleraController extends AbstractController {
+public class CarteleraController  {
+	
+	@Autowired
+	private GenericBO<Cartelera> carteleraBO;
 
 	/**
 	 * Recupera una cartelera por id
@@ -30,16 +37,30 @@ public class CarteleraController extends AbstractController {
 	@RequestMapping(value="/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> get(@PathVariable("id") Long id){
 		
-		Cartelera cartelera =  null;
 		try {
-			cartelera = this.getCarteleraBO().find(id);
-			return new ResponseEntity<Cartelera>(cartelera, HttpStatus.OK);
+			return new ResponseEntity<Cartelera>(this.getCarteleraBO().find(id), HttpStatus.OK);
+
 		} catch (NotFoundException e) {
 			e.printStackTrace();
 			ResponseError error = new ResponseError();
 			error.setError("CarteleraController - Ocurrió un error al recuperar la cartelera " + id);
 			return new ResponseEntity<ResponseError>(error, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+	
+	@RequestMapping(value="", method = RequestMethod.GET)
+	public List<Cartelera> getAll(){
+		
+		List<Cartelera> carteleraList = null;
+		try {
+			carteleraList = this.getCarteleraBO().getAll(Cartelera.class);
+
+		} catch (NotFoundException e) {
+			e.printStackTrace();
+			ResponseError error = new ResponseError();
+			error.setError("CarteleraController - Ocurrió un error al recuperar la cartelera " );
+		}
+		return carteleraList;
 	}
 	
 	/**
@@ -101,6 +122,14 @@ public class CarteleraController extends AbstractController {
 			error.setError("CarteleraController - Ocurrió un error al intentar eliminar la cartelera " + id);
 			return new ResponseEntity<ResponseError>(error, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+
+	public GenericBO<Cartelera> getCarteleraBO() {
+		return carteleraBO;
+	}
+
+	public void setCarteleraBO(GenericBO<Cartelera> carteleraBO) {
+		this.carteleraBO = carteleraBO;
 	}
 	
 	
