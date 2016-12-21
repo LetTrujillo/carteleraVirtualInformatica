@@ -28,7 +28,7 @@ public class GuaraniAPIController {
 	@Autowired
 	private GuaraniBOImpl guaraniBO;
 
-	@RequestMapping(value="/crearAlumnosDePrueba", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/guarani-api/crearAlumnosDePrueba", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<AlumnoDTO>> crearAlumnosDePrueba(){
 		try {
@@ -46,7 +46,7 @@ public class GuaraniAPIController {
 		}
 	}
 
-	@RequestMapping(value="/crearDocentesDePrueba", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/guarani-api/crearDocentesDePrueba", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<DocenteDTO>> crearDocentesDePrueba(){
 		try {
@@ -63,7 +63,7 @@ public class GuaraniAPIController {
 		}
 	}
 
-	@RequestMapping(value="/alumnos/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/guarani-api/alumnos/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<AlumnoDTO> getAlumno(@PathVariable("id") long id){
 		try{
@@ -78,7 +78,7 @@ public class GuaraniAPIController {
 		}
 	}
 
-	@RequestMapping(value="/alumnos", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/guarani-api/alumnos", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<AlumnoDTO>> getAlumnos(){
 		try {
@@ -95,7 +95,7 @@ public class GuaraniAPIController {
 		}
 	}
 
-	@RequestMapping(value="/profesores/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/guarani-api/profesores/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<DocenteDTO> getProfesor(@PathVariable("id") long id){
 		try{
@@ -110,7 +110,7 @@ public class GuaraniAPIController {
 		}
 	}
 
-	@RequestMapping(value="/profesores", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/guarani-api/profesores", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<DocenteDTO>> getProfesores(){
 		try {
@@ -127,7 +127,7 @@ public class GuaraniAPIController {
 		}
 	}
 
-	@RequestMapping(value = "/alumnos/chequearlogin", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes= MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/guarani-api/alumnos/chequearlogin", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes= MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<AlumnoDTO> chequearAlumnoLogin(@RequestBody LoginInfoDTO login){
 		try {
@@ -144,7 +144,7 @@ public class GuaraniAPIController {
 		}
 	}
 
-	@RequestMapping(value = "/profesores/chequearlogin", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes= MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/guarani-api/profesores/chequearlogin", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes= MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<DocenteDTO> chequearDocenteLogin(@RequestBody LoginInfoDTO login){
 		try {

@@ -15,7 +15,6 @@ import cartelera.virtual.dao.UsuarioDAO;
 import cartelera.virtual.entidades.Alumno;
 import cartelera.virtual.entidades.Docente;
 import cartelera.virtual.entidades.Usuario;
-import cartelera.virtual.exception.DeleteException;
 import cartelera.virtual.exception.FindException;
 
 @Repository("usuarioDAO")

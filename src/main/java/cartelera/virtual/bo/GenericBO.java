@@ -3,8 +3,6 @@ package cartelera.virtual.bo;
 import java.io.Serializable;
 import java.util.List;
 
-import org.dozer.Mapper;
-
 import cartelera.virtual.exception.DeleteException;
 import cartelera.virtual.exception.SaveException;
 import cartelera.virtual.exception.UpdateException;

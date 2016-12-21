@@ -3,6 +3,8 @@ package cartelera.virtual.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.dozer.DozerBeanMapper;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,8 +25,7 @@ import cartelera.virtual.exception.UpdateException;
 import javassist.NotFoundException;
 
 @RestController
-@RequestMapping("/permiso")
-public class PermisoController extends AbstractController {
+public class PermisoController {
 	
 	@Autowired
 	private GenericBO<Usuario> usuarioBO;
@@ -32,7 +33,9 @@ public class PermisoController extends AbstractController {
 	@Autowired
 	private GenericBO<Cartelera> carteleraBO;
 	
-	@RequestMapping(value = "/addPermisos", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	private Mapper mapper;
+	
+	@RequestMapping(value = "/permiso", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<?> otorgarPermisos(@RequestBody PermisoDTO permisoDTO) {
 		try {
 			Usuario usuario = this.getUsuarioBO().find(permisoDTO.getUsuario());
@@ -45,7 +48,10 @@ public class PermisoController extends AbstractController {
 			List<Permiso> permisos = new ArrayList<Permiso>();
 			permisos.add(permiso);
 			usuario.setPermisos(permisos);
-			return new ResponseEntity<Usuario>(this.getUsuarioBO().update(usuario), HttpStatus.OK);
+			this.getUsuarioBO().update(usuario);
+			
+			PermisoDTO retval = mapper.map(permiso, PermisoDTO.class);
+			return new ResponseEntity<PermisoDTO>(retval, HttpStatus.OK);
 		} catch (UpdateException e) {
 			e.printStackTrace();
 			ResponseError error = new ResponseError();
@@ -75,7 +81,9 @@ public class PermisoController extends AbstractController {
 		this.carteleraBO = carteleraBO;
 	}
 		
-		
+	public PermisoController(){
+		mapper = new DozerBeanMapper();
+	}	
 }
 
 

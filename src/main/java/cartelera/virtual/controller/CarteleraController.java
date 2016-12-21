@@ -1,7 +1,10 @@
 package cartelera.virtual.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.dozer.DozerBeanMapper;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,24 +26,32 @@ import cartelera.virtual.exception.UpdateException;
 import javassist.NotFoundException;
 
 @RestController
-@RequestMapping("/cartelera")
 public class CarteleraController  {
 	
 	@Autowired
 	private GenericBO<Cartelera> carteleraBO;
+	
+	private Mapper mapper;
 
 	/**
 	 * Recupera una cartelera por id
 	 * @param id
 	 * @return Cartelera
 	 */
-	@RequestMapping(value="/{id}", method = RequestMethod.GET)
+	@RequestMapping(value="/cartelera/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> get(@PathVariable("id") Long id){
-		
 		try {
-			return new ResponseEntity<Cartelera>(this.getCarteleraBO().find(id), HttpStatus.OK);
-
+			Cartelera cartelera = this.getCarteleraBO().find(id);
+			CarteleraDTO retval = mapper.map(cartelera, CarteleraDTO.class);
+			return new ResponseEntity<CarteleraDTO>(retval, HttpStatus.OK);
+			
 		} catch (NotFoundException e) {
+			e.printStackTrace();
+			ResponseError error = new ResponseError();
+			error.setError("CarteleraController - Ocurrió un error al recuperar la cartelera " + id);
+			return new ResponseEntity<ResponseError>(error, HttpStatus.NO_CONTENT);
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 			ResponseError error = new ResponseError();
 			error.setError("CarteleraController - Ocurrió un error al recuperar la cartelera " + id);
@@ -48,19 +59,31 @@ public class CarteleraController  {
 		}
 	}
 	
-	@RequestMapping(value="", method = RequestMethod.GET)
-	public List<Cartelera> getAll(){
-		
-		List<Cartelera> carteleraList = null;
+	@RequestMapping(value="/cartelera", method = RequestMethod.GET)
+	public ResponseEntity<?> getAll(){
 		try {
+			List<Cartelera> carteleraList = new ArrayList<Cartelera>();
 			carteleraList = this.getCarteleraBO().getAll(Cartelera.class);
+			
+			List<CarteleraDTO> retval = new ArrayList<CarteleraDTO>();
+			HttpStatus resultStatus = HttpStatus.OK;
+			
+			if(carteleraList == null || carteleraList.size() == 0){
+				resultStatus = HttpStatus.NO_CONTENT;
+			}else{
+				for(Cartelera cart : carteleraList){
+					retval.add(mapper.map(cart, CarteleraDTO.class));
+				}
+			}
+
+			return new ResponseEntity<List<CarteleraDTO>>(retval,resultStatus);
 
 		} catch (NotFoundException e) {
 			e.printStackTrace();
 			ResponseError error = new ResponseError();
 			error.setError("CarteleraController - Ocurrió un error al recuperar la cartelera " );
+			return new ResponseEntity<ResponseError>(error, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return carteleraList;
 	}
 	
 	/**
@@ -68,13 +91,18 @@ public class CarteleraController  {
 	 * @param carteleraDTO
 	 * @return Cartelera
 	 */
-	@RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/cartelera", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<?> save(@RequestBody CarteleraDTO carteleraDTO) {
-		Cartelera cartelera = new Cartelera();
-		cartelera.setTitulo(carteleraDTO.getTitulo());
-		cartelera.setActivo(carteleraDTO.isActivo());
 		try {
-			return new ResponseEntity<Cartelera>(this.getCarteleraBO().save(cartelera), HttpStatus.OK);
+			Cartelera cartelera = new Cartelera();
+			cartelera.setTitulo(carteleraDTO.getTitulo());
+			cartelera.setActivo(carteleraDTO.isActivo());
+			
+			cartelera = this.getCarteleraBO().save(cartelera);
+			
+			CarteleraDTO retval = mapper.map(cartelera, CarteleraDTO.class);
+			
+			return new ResponseEntity<CarteleraDTO>(retval, HttpStatus.OK);
 		} catch (SaveException e) {
 			e.printStackTrace();
 			ResponseError error = new ResponseError();
@@ -88,14 +116,20 @@ public class CarteleraController  {
 	 * @param carteleraDTO
 	 * @return Cartelera
 	 */
-	@RequestMapping(value = "/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/cartelera/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<?> update(@RequestBody CarteleraDTO carteleraDTO) {
-		Cartelera cartelera = new Cartelera();
-		cartelera.setId(carteleraDTO.getId());
-		cartelera.setTitulo(carteleraDTO.getTitulo());
-		cartelera.setActivo(carteleraDTO.isActivo());
 		try {
-			return new ResponseEntity<Cartelera>(this.getCarteleraBO().update(cartelera), HttpStatus.OK);
+			Cartelera cartelera = new Cartelera();
+			cartelera.setId(carteleraDTO.getId());
+			cartelera.setTitulo(carteleraDTO.getTitulo());
+			cartelera.setActivo(carteleraDTO.isActivo());
+			
+			cartelera = this.getCarteleraBO().update(cartelera);
+			
+			CarteleraDTO retval = mapper.map(cartelera, CarteleraDTO.class);
+			
+			return new ResponseEntity<CarteleraDTO>(retval, HttpStatus.OK);
+			
 		} catch (UpdateException e) {
 			e.printStackTrace();
 			ResponseError error = new ResponseError();
@@ -110,9 +144,8 @@ public class CarteleraController  {
 	 * @return Cartelera
 	 */
 
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/cartelera/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody ResponseEntity<?> delete(@PathVariable("id") Long id){
-
 		try {
 			this.getCarteleraBO().remove(id);
 			return new ResponseEntity<String>("La cartelera fue eliminada", HttpStatus.OK);
@@ -132,5 +165,7 @@ public class CarteleraController  {
 		this.carteleraBO = carteleraBO;
 	}
 	
-	
+	public CarteleraController(){
+		mapper = new DozerBeanMapper();
+	}
 }

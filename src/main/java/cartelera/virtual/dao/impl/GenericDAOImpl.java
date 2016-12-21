@@ -107,10 +107,11 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 		this.persistentClass = persistentClass;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> getAll(Class<T> entityClass) throws NotFoundException {
 		
 		Query query = getEntityManager().createQuery("from " + entityClass.getName());
-		return query.getResultList();
+		return (List<T>)query.getResultList();
 	}
 }

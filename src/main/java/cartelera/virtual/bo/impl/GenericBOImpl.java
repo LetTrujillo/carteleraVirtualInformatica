@@ -3,9 +3,6 @@ package cartelera.virtual.bo.impl;
 import java.io.Serializable;
 import java.util.List;
 
-import org.dozer.DozerBeanMapper;
-import org.dozer.Mapper;
-
 import cartelera.virtual.bo.GenericBO;
 import cartelera.virtual.dao.GenericDAO;
 import cartelera.virtual.exception.DeleteException;

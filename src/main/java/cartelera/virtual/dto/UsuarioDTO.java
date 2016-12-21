@@ -6,7 +6,6 @@ public class UsuarioDTO {
 	
 	private Long id;
 	private String nombreUsuario;
-	private List<PermisoDTO> permisos;
 	
 	public UsuarioDTO() {
 		super();
@@ -26,14 +25,6 @@ public class UsuarioDTO {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public List<PermisoDTO> getPermisos() {
-		return permisos;
-	}
-
-	public void setPermisos(List<PermisoDTO> permisos) {
-		this.permisos = permisos;
 	}
 
 		

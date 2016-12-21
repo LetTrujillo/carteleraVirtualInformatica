@@ -30,7 +30,6 @@ public class GuaraniBOImpl implements GuaraniBO{
 	public List<AlumnoDTO> getAlumnos() throws FindException{
 		List<AlumnoDTO> result = new ArrayList<AlumnoDTO>();
 		
-		@SuppressWarnings("unused")
 		List<Alumno> alumnos = usuarioDAO.findAllAlumnos();
 		
 		for(Alumno alumno : alumnos){
@@ -49,7 +48,6 @@ public class GuaraniBOImpl implements GuaraniBO{
 	public List<DocenteDTO> getDocentes() throws FindException{
 		List<DocenteDTO> result = new ArrayList<DocenteDTO>();
 		
-		@SuppressWarnings("unused")
 		List<Docente> docentes = usuarioDAO.findAllDocentes();
 		
 		for(Docente docente : docentes){
