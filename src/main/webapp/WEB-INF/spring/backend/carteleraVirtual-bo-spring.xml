@@ -26,9 +26,9 @@
 <!-- 		<property name="dao" ref="contenidoPublicacionDAO" /> -->
 <!-- 	</bean> -->
 	
-	<bean id="permisoBO" class="cartelera.virtual.bo.impl.GenericBOImpl">
-		<property name="dao" ref="permisoDAO" />
-	</bean>
+<!-- 	<bean id="permisoBO" class="cartelera.virtual.bo.impl.GenericBOImpl"> -->
+<!-- 		<property name="dao" ref="permisoDAO" /> -->
+<!-- 	</bean> -->
 	
 <!-- 	<bean id="publicacionBO" class="cartelera.virtual.bo.impl.GenericBOImpl"> -->
 <!-- 		<property name="dao" ref="publicacionDAO" /> -->
