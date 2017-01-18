@@ -3,12 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="angular/angular-csp.css">
+<link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css"  />
 </head>
-<body ng-controller="PruebaController">
-
+<body>
+<div>
+<ui-view></ui-view>
+</div>
     <h1>{{mensaje}}</h1>
-	<script src="angular.min.js"></script>
+    <!-- angular scripts -->
+	<script src="angular/angular.min.js"></script>	  
+    <script src="angular/angular-messages.min.js"></script>
+    <script src="angular/angular-route.min.js"></script>
+    <script src="angular/release/angular-ui-router.min.js"></script>
+    <script src="angular/ngStorage.min.js"></script>
+	
 	<script src="app.js"></script>
-	<script src="./components/prueba.controller.js"></script>
+	<script src="login/login.controller.js"></script>
+	<script src="login/login.service.js"></script>
 </body>
+
 </html>
+<!-- http://jasonwatmore.com/post/2016/04/05/angularjs-jwt-authentication-example-tutorial -->
