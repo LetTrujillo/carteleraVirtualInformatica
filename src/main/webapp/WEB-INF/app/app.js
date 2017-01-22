@@ -5,6 +5,7 @@ angular.module('Login', []);
 angular.module('Alumno', []);
 angular.module('Docente', []);
 angular.module('Authentication', []);
+angular.module('Operacion', []);
 
 
 
@@ -21,7 +22,8 @@ angular.module('carteleraApp', [
      'Login',
      'Alumno',
      'Docente',
-     'Authentication'
+     'Authentication',
+     'Operacion'
 ])
 
 .constant('config', {
@@ -51,6 +53,11 @@ angular.module('carteleraApp', [
                 url: '/docente',
                 templateUrl: 'docente/menu.html',
                 controller: 'DocenteController',
+            })
+         .state('operacion', {
+                url: '/operacion',
+                templateUrl: 'operacion/menuOperacion.html',
+                controller: 'OperacionController',
             })
 
 })

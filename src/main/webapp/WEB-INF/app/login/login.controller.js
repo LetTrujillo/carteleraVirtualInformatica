@@ -19,7 +19,7 @@
                 if (result != null && result != '') {
                 	$localStorage.currentUser = { username: $scope.username, token: result.data };
                 	$http.defaults.headers.common.Authorization = result.data;
-                	$state.go('alumno');
+                	$state.go('operacion');
                 } else {
                 	$scope.error = 'Nombre de usuario o contraseña incorrectos';
                 	$scope.loading = false;
