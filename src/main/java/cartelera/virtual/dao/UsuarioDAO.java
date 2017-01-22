@@ -12,4 +12,5 @@ public interface UsuarioDAO extends GenericDAO<Usuario> {
 	public List<Docente> findAllDocentes() throws FindException;
 	public Docente checkLoginDocente(String username, String password) throws FindException;
 	public Alumno checkLoginAlumno(String username, String password) throws FindException;
+	public Usuario checkLogin(String username, String password) throws FindException;
 }

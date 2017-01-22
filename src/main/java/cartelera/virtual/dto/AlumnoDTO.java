@@ -15,7 +15,6 @@ public class AlumnoDTO implements Serializable {
 	private String apellido;
 	private String email;
 	
-	
 	public Long getId() {
 		return id;
 	}

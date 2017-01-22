@@ -19,10 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cartelera.virtual.bo.GenericBO;
 import cartelera.virtual.common.error.ResponseError;
-import cartelera.virtual.dto.CarteleraDTO;
 import cartelera.virtual.dto.UsuarioDTO;
 import cartelera.virtual.entidades.Alumno;
-import cartelera.virtual.entidades.Cartelera;
 import cartelera.virtual.entidades.Usuario;
 import cartelera.virtual.exception.DeleteException;
 import cartelera.virtual.exception.SaveException;
