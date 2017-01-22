@@ -5,33 +5,28 @@ import java.net.URLEncoder;
 import java.util.Calendar;
 import java.util.Date;
 
-import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import cartelera.virtual.bo.impl.GuaraniBOImpl;
 import cartelera.virtual.common.error.ResponseError;
 import cartelera.virtual.dto.AlumnoDTO;
 import cartelera.virtual.dto.LoginInfoDTO;
-import cartelera.virtual.entidades.Usuario;
-import cartelera.virtual.exception.FindException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
-@RequestMapping("/api/authentication")
+@RequestMapping("/authentication")
 @Controller
 public class AuthenticationController {
 	
