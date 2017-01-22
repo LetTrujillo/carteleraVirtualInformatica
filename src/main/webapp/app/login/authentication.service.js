@@ -7,7 +7,8 @@ angular.module('Authentication')
 
 			login: function(userName, password){
 				var usuario = {
-						nombreUsuario: userName
+						username: userName,
+						password: password
 						};
 				return $http.post(config.ctxPath+'/authentication/login', usuario)
 					.then(function(result) {
