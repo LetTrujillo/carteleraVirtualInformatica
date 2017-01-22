@@ -2,7 +2,7 @@
 'use strict';
 
     angular.module('Login')
-        .controller('LoginController', function($scope, $state, $stateParams, $location, LoginAuthenticationService){
+        .controller('LoginController', function($scope, $state, $stateParams, $location, AuthenticationService, $localStorage, $http){
 
         $scope.login = login;
 
@@ -10,14 +10,16 @@
 
         function initLoginController() {
             // reset login status
-        	LoginAuthenticationService.logout();
+        	AuthenticationService.logout();
         };
 
         function login() {
             $scope.loading = true;
-            LoginAuthenticationService.login($scope.username, $scope.password, function (result) {
-                if (result === true) {
-                    $location.path('/');
+            AuthenticationService.login($scope.username, $scope.password).then( function (result) {
+                if (result != null && result != '') {
+                	$localStorage.currentUser = { username: $scope.username, token: result.data };
+                	$http.defaults.headers.common.Authorization = result.data;
+                	$state.go('alumno');
                 } else {
                 	$scope.error = 'Nombre de usuario o contraseña incorrectos';
                 	$scope.loading = false;

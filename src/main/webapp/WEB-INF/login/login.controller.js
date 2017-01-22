@@ -2,7 +2,7 @@
 'use strict';
 
     angular.module('carteleraApp')
-        .controller('LoginController', function($scope, $state, $stateParams, $location, LoginAuthenticationService){
+        .controller('LoginController', function($scope, $state, $stateParams, $location, AuthenticationService){
 
         $scope.login = login;
 
@@ -10,12 +10,12 @@
 
         function initLoginController() {
             // reset login status
-        	LoginAuthenticationService.logout();
+        	AuthenticationService.logout();
         };
 
         function login() {
             $scope.loading = true;
-            LoginAuthenticationService.login($scope.username, $scope.password, function (result) {
+            AuthenticationService.login($scope.username, $scope.password, function (result) {
                 if (result === true) {
                     $location.path('/');
                 } else {

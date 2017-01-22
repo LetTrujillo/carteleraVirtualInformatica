@@ -3,7 +3,7 @@
 
     angular
         .module('carteleraApp')
-        .factory('LoginAuthenticationService', Service);
+        .factory('AuthenticationService', Service);
 
     function Service($http, $localStorage) {
         var service = {};
