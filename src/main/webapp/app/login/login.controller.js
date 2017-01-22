@@ -13,19 +13,25 @@
         	AuthenticationService.logout();
         };
 
+        
+        
         function login() {
-            $scope.loading = true;
-            AuthenticationService.login($scope.username, $scope.password).then( function (result) {
-                if (result != null && result != '') {
-                	$localStorage.currentUser = { username: $scope.username, token: result.data };
-                	$http.defaults.headers.common.Authorization = result.data;
-                	$state.go('operacion');
-                } else {
+        	AuthenticationService.login($scope.username, $scope.password).then( function (result) {
+           	 
+            	if (result != null && result != '') {
+                 	$localStorage.currentUser = { username: $scope.username, token: result.data };
+                 	$http.defaults.headers.common.Authorization = result.data;
+                 	$state.go('operacion');
+                 }
+            	else {
                 	$scope.error = 'Nombre de usuario o contraseña incorrectos';
                 	$scope.loading = false;
                 }
-            });
-        }
-   })
-        
+                  
+                }, function(error){
+                	$scope.error = 'Nombre de usuario o contraseña incorrectos';
+                	$scope.loading = false;
+                });
+        };
+});     
 })();
