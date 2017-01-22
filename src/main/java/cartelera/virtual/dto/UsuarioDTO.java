@@ -1,11 +1,10 @@
 package cartelera.virtual.dto;
 
-import java.util.List;
-
 public class UsuarioDTO {
 	
 	private Long id;
 	private String nombreUsuario;
+	private String perfil;
 	
 	public UsuarioDTO() {
 		super();
@@ -25,6 +24,14 @@ public class UsuarioDTO {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getPerfil() {
+		return perfil;
+	}
+
+	public void setPerfil(String perfil) {
+		this.perfil = perfil;
 	}
 
 		

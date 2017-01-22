@@ -99,4 +99,21 @@ public class UsuarioDAOImpl extends GenericDAOImpl<Usuario> implements UsuarioDA
 		}
 	}
 	
+	@Override
+	public Usuario checkLogin(String username, String password) throws FindException{
+		EntityManager em = getEntityManager(); 
+		try {
+			CriteriaBuilder cb = em.getCriteriaBuilder();
+			CriteriaQuery<Usuario> q = cb.createQuery(Usuario.class);
+			Root<Usuario> c = q.from(Usuario.class);
+			q.where(cb.and(cb.equal(c.get("nombreUsuario"), username),
+					cb.equal(c.get("password"), password)));
+			Query theQuery = em.createQuery(q);
+			
+			return (Usuario)theQuery.getSingleResult();
+		}catch(Exception e){
+			throw new FindException("Ocurrió un error al tratar de realizar la búsqueda.");
+		}
+	}
+	
 }

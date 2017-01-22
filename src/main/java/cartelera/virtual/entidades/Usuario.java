@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Table(name="USUARIO")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE) 
 @DiscriminatorColumn(name="USUARIO_PERFIL")
-public abstract class Usuario implements Serializable{
+public class Usuario implements Serializable{
 	
 	/**
 	 * 
@@ -41,7 +41,16 @@ public abstract class Usuario implements Serializable{
 	private String email;
 
 	private String password;
+	
+	@Column(name="USUARIO_PERFIL", updatable=false, insertable=false)
+	private String perfil;
 
+	public String getPerfil() {
+		return perfil;
+	}
+	public void setPerfil(String perfil) {
+		this.perfil = perfil;
+	}
 	public Long getId() {
 		return id;
 	}

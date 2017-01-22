@@ -21,10 +21,7 @@ angular.module('Authentication')
 	            $http.defaults.headers.common.Authorization = '';
 			},
 			validateToken: function(userName){
-				var usuario = {
-						nombreUsuario: userName
-						};
-				return $http.post(config.ctxPath+'/authentication/validate', usuario)
+				return $http.post(config.ctxPath+'/authentication/validate')
 					.then(function(result) {
 						return result;
 					}
