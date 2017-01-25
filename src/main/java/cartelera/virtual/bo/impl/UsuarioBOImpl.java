@@ -1,5 +1,7 @@
 package cartelera.virtual.bo.impl;
 
+import java.util.List;
+
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 import cartelera.virtual.bo.UsuarioBO;
 import cartelera.virtual.dao.UsuarioDAO;
 import cartelera.virtual.dto.UsuarioDTO;
+import cartelera.virtual.entidades.Permiso;
 import cartelera.virtual.entidades.Usuario;
 import cartelera.virtual.exception.FindException;
 
@@ -25,6 +28,10 @@ public class UsuarioBOImpl extends GenericBOImpl<Usuario> implements UsuarioBO {
 	public UsuarioDTO login(String username, String password) throws FindException{
 		Usuario loginUser = usuarioDAO.checkLogin(username, password);
 		return mapper.map(loginUser, UsuarioDTO.class);
+	}
+	
+	public  List<Permiso> getPermisosByUser(String username) throws FindException{
+		return usuarioDAO.getPermisosByUser(username);
 	}
 	
 	public Mapper getMapper() {

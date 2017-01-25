@@ -1,5 +1,6 @@
 package cartelera.virtual.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import cartelera.virtual.dao.UsuarioDAO;
 import cartelera.virtual.entidades.Alumno;
 import cartelera.virtual.entidades.Docente;
+import cartelera.virtual.entidades.Permiso;
 import cartelera.virtual.entidades.Usuario;
 import cartelera.virtual.exception.FindException;
 
@@ -109,8 +111,25 @@ public class UsuarioDAOImpl extends GenericDAOImpl<Usuario> implements UsuarioDA
 			q.where(cb.and(cb.equal(c.get("nombreUsuario"), username),
 					cb.equal(c.get("password"), password)));
 			Query theQuery = em.createQuery(q);
-			
 			return (Usuario)theQuery.getSingleResult();
+		}catch(Exception e){
+			throw new FindException("Ocurrió un error al tratar de realizar la búsqueda.");
+		}
+	}
+	
+	@Override
+	public List<Permiso> getPermisosByUser(String username) throws FindException{
+		EntityManager em = getEntityManager(); 
+		try {
+			CriteriaBuilder cb = em.getCriteriaBuilder();
+			CriteriaQuery<Usuario> q = cb.createQuery(Usuario.class);
+			Root<Usuario> c = q.from(Usuario.class);
+			q.where(cb.and(cb.equal(c.get("nombreUsuario"), username)));
+			Query theQuery = em.createQuery(q);
+			Usuario usuario = (Usuario)theQuery.getSingleResult();
+			List<Permiso> permisos = usuario.getPermisos();
+						
+			return permisos;
 		}catch(Exception e){
 			throw new FindException("Ocurrió un error al tratar de realizar la búsqueda.");
 		}

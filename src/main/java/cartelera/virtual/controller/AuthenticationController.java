@@ -48,17 +48,6 @@ public class AuthenticationController {
 	public @ResponseBody ResponseEntity<?> authentication(HttpServletRequest request, @RequestBody LoginInfoDTO login) {
 		try {
 			String token = null;
-			/**
-			 * El enunciado dice: "debe responder​ a todos los perfiles de usuarios​ . 
-			 * Para los casos de usuarios Alumnos ​ y ​ Profesores ​ se deberá consultar la API de Guaraní​."
-
-			 * --Cuando el usuario está iniciando sesión no sabemos qué rol es, entonces cómo se consulta a guaraní por alumno o por docente?
-			 * Para mí habría que tener usuario con rol (alumno, docente, publicador, etc), recuperar de la base el usuario que se está intentando 
-			 * loguear, si el rol = alumno o profesor, entonces consultar a la api de guaraní.
-			 * Si no, validar con los datos de la base.
-			 * --
-			 */
-
 			UsuarioDTO loginUser = usuarioBO.login(login.getUsername(), login.getPassword());
 
 			if(loginUser != null && !"".equals(loginUser)){
