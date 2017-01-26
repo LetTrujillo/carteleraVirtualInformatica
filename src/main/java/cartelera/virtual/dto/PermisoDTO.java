@@ -2,8 +2,8 @@ package cartelera.virtual.dto;
 
 public class PermisoDTO {
 	
-	private Long cartelera; 
-	private Long usuario;
+	private CarteleraDTO cartelera; 
+	private UsuarioDTO usuario;
 	private boolean puede_publicar;	
 	private boolean puede_editar;
 
@@ -19,19 +19,19 @@ public class PermisoDTO {
 		this.puede_editar = puede_editar;
 	}
 
-	public Long getCartelera() {
+	public CarteleraDTO getCartelera() {
 		return cartelera;
 	}
 
-	public void setCartelera(Long cartelera) {
+	public void setCartelera(CarteleraDTO cartelera) {
 		this.cartelera = cartelera;
 	}
 
-	public Long getUsuario() {
+	public UsuarioDTO getUsuario() {
 		return usuario;
 	}
 
-	public void setUsuario(Long usuario) {
+	public void setUsuario(UsuarioDTO usuario) {
 		this.usuario = usuario;
 	}
 

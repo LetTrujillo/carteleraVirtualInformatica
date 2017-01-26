@@ -1,12 +1,14 @@
 package cartelera.virtual.dao.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
@@ -120,16 +122,12 @@ public class UsuarioDAOImpl extends GenericDAOImpl<Usuario> implements UsuarioDA
 	@Override
 	public List<Permiso> getPermisosByUser(String username) throws FindException{
 		EntityManager em = getEntityManager(); 
-		try {
-			CriteriaBuilder cb = em.getCriteriaBuilder();
-			CriteriaQuery<Usuario> q = cb.createQuery(Usuario.class);
-			Root<Usuario> c = q.from(Usuario.class);
-			q.where(cb.and(cb.equal(c.get("nombreUsuario"), username)));
-			Query theQuery = em.createQuery(q);
-			Usuario usuario = (Usuario)theQuery.getSingleResult();
-			List<Permiso> permisos = usuario.getPermisos();
+		try {			
+			String queryStr = String.format("SELECT p FROM Permiso p INNER JOIN p.usuario u where u.nombreUsuario = \'%s\'",username);
+			TypedQuery<Permiso> tipedQuery = em.createQuery(queryStr, Permiso.class);
+			List<Permiso> results = tipedQuery.getResultList();
 						
-			return permisos;
+			return results;
 		}catch(Exception e){
 			throw new FindException("Ocurrió un error al tratar de realizar la búsqueda.");
 		}
