@@ -10,7 +10,7 @@
                 http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
                 
                 
-    <bean id="usuarioBO" class="cartelera.virtual.bo.impl.GenericBOImpl">
+    <bean id="usuarioBO" class="cartelera.virtual.bo.impl.UsuarioBOImpl">
 		<property name="dao" ref="usuarioDAO" />
 	</bean>
 		
