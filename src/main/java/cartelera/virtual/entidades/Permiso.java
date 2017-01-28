@@ -18,10 +18,10 @@ public class Permiso implements Serializable{
 	@Column(name="PERMISO_ID")
 	private Long id;
 	
-	@OneToOne(optional=false)
+	@ManyToOne(optional=false)
 	private Cartelera cartelera;
 	
-	@OneToOne(optional=false)
+	@ManyToOne(optional=false)
 	private Usuario usuario;
 	
 	private boolean puede_editar;

@@ -24,12 +24,6 @@ public class Usuario implements Serializable{
 	
 	@Column(name="USERNAME")
 	private String nombreUsuario;
-	
-	@OneToMany(cascade={CascadeType.ALL})
-	@JoinTable(name="USUARIO_PERMISO", 
-	joinColumns=@JoinColumn(name="USUARIO_ID",referencedColumnName="USUARIO_ID"), 
-	inverseJoinColumns=@JoinColumn(name="PERMISO_ID",referencedColumnName="PERMISO_ID"))
-	private List<Permiso> permisos;
 
 	@Column(name="NOMBRE")
 	private String nombre;
@@ -62,12 +56,6 @@ public class Usuario implements Serializable{
 	}
 	public void setNombreUsuario(String nombreUsuario) {
 		this.nombreUsuario = nombreUsuario;
-	}
-	public List<Permiso> getPermisos() {
-		return permisos;
-	}
-	public void setPermisos(List<Permiso> permisos) {
-		this.permisos = permisos;
 	}
 	public String getNombre() {
 		return nombre;

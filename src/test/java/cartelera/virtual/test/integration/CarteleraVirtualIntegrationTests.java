@@ -77,8 +77,6 @@ public class CarteleraVirtualIntegrationTests{
 		permiso.setCartelera(cartelera);
 		permisos.add(permiso);
 
-		alumno.setPermisos(permisos);
-
 		try{
 			CarteleraDAO carteleraDao = ctx.getBean("carteleraDAO", CarteleraDAO.class);
 			carteleraDao.save(cartelera);
@@ -130,7 +128,6 @@ public class CarteleraVirtualIntegrationTests{
 		permiso.setCartelera(cartelera);
 		permisos.add(permiso);
 
-		alumno.setPermisos(permisos);
 
 		Suscripcion suscripcion = new Suscripcion();
 		suscripcion.setCartelera(cartelera);
