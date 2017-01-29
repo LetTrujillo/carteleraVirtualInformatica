@@ -4,6 +4,8 @@ public class UsuarioDTO {
 	
 	private Long id;
 	private String nombreUsuario;
+	private String nombre;
+	private String apellido;
 	private String perfil;
 	
 	public UsuarioDTO() {
@@ -32,6 +34,22 @@ public class UsuarioDTO {
 
 	public void setPerfil(String perfil) {
 		this.perfil = perfil;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getApellido() {
+		return apellido;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
 	}
 
 		

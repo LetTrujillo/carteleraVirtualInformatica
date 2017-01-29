@@ -1,0 +1,49 @@
+@CHARSET "UTF-8";
+
+.navbar {
+	margin-bottom: 0;
+	border-radius: 0;
+	background-color: rgba(0, 0, 0, 0.55);
+}
+
+/* Add a gray background color and some padding to the footer */
+footer {
+	background-color: #f2f2f2;
+	padding: 25px;
+}
+
+html, body {
+	height: 100%;
+}
+
+.all-content {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+}
+
+.cartelera-menu, .contenido, .footer{
+	z-index: 100;
+}
+.contenido, .navbar-brand{
+	color:#FFF !important;
+}
+.background-image {
+    position: fixed;
+    z-index:0;
+    left: 0;
+    right: 0;
+    display: block;
+    background-image: url(../img/unlp.jpg);
+    height: 100%;
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+}
+
+.cartelera-tile{
+    background-color: rgba(0, 0, 0, 0.55);
+    min-height: 300px;
+}

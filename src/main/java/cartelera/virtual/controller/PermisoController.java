@@ -13,17 +13,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
-import cartelera.virtual.bo.GenericBO;
 import cartelera.virtual.bo.impl.UsuarioBOImpl;
 import cartelera.virtual.common.error.ResponseError;
 import cartelera.virtual.dto.PermisoDTO;
-import cartelera.virtual.dto.UsuarioDTO;
 import cartelera.virtual.entidades.Permiso;
-import cartelera.virtual.entidades.Usuario;
 import cartelera.virtual.exception.FindException;
-import javassist.NotFoundException;
 
 @RequestMapping("/permiso")
 @Controller
@@ -32,8 +27,6 @@ public class PermisoController {
 	private Mapper mapper;
 	
 	
-//	private PermisoBOImpl permisoBO;
-//	
 	@Autowired
 	private UsuarioBOImpl usuarioBO;
 	
