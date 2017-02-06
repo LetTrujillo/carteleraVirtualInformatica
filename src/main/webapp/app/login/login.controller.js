@@ -2,7 +2,7 @@
 'use strict';
 
     angular.module('Login')
-        .controller('LoginController', function($scope, $state, $stateParams, $location, AuthenticationService, $localStorage, $http){
+        .controller('LoginController', function($scope, $state, $stateParams, $location, AuthenticationService, $localStorage, $http, $rootScope){
 
         $scope.login = login;
 
@@ -11,6 +11,7 @@
         function initLoginController() {
             // reset login status
         	AuthenticationService.logout();
+            $rootScope.loggedIn = false;
         };
 
         
@@ -21,6 +22,7 @@
             	if (result != null && result != '') {
                  	$localStorage.currentUser = { username: $scope.username, token: result.data };
                  	$http.defaults.headers.common.Authorization = result.data;
+                 	$rootScope.loggedIn = true;
                  	$state.go('operacion');
                  }
             	else {

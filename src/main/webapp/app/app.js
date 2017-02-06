@@ -81,11 +81,14 @@ angular.module('carteleraApp', [
         //Si no está logueado e intenta acceder a una página restringida
         if (restrictedPage && !$localStorage.currentUser) {
             $location.path('/login');
+            $rootScope.loggedIn = false;
+
         }
         //Está logueado, validar el token por si intenta acceder a una página restringida
         else if($localStorage.currentUser){
         	if(!AuthenticationService.validateToken($localStorage.currentUser.username)){
         		$location.path('/login');
+        		$rootScope.loggedIn = false;
         	}
         }
         

@@ -26,8 +26,10 @@
 						<li class="active"><a href="#">Home</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#!login"><span class="glyphicon glyphicon-log-in"></span>
+						<li ng-hide="loggedIn"><a href="#!login"><span class="glyphicon glyphicon-log-in"></span>
 								Login</a></li>
+						<li ng-show="loggedIn"><a href="#/login"><span class="glyphicon glyphicon-log-out"></span>
+						Logout</a></li>
 					</ul>
 				</div>
 			</div>
