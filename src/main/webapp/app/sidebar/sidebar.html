@@ -1,0 +1,32 @@
+<ul id="navLeft" class="nav nav-pills nav-stacked">
+    <li ng-if="role == 'docente'" ui-sref-active="active">
+        <a ui-sref="">Información General</a>
+    </li>
+    <li ng-if="role == 'docente'" ui-sref-active="active">
+        <a ui-sref="">Cartelera Educativa</a>
+    </li>
+    <li ng-if="role == 'docente'"ui-sref-active="active">
+        <a ui-sref="">Cartelera de Eventos</a>
+    </li>
+    <li ng-if="role == 'docente'" ui-sref-active="active">
+    	<a ui-sref="">Suscriptores</a>
+    </li>
+    <li ng-if="role == 'docente'" ui-sref-active="active">
+    	<a ui-sref="">Novedades</a>
+    </li>
+ 	<li ng-if="role == 'administrador'" ui-sref-active="active">
+        <a ui-sref="">Editar Carteleras</a>
+    </li>
+    <li ng-if="role == 'administrador'" ui-sref-active="active">
+        <a ui-sref="">Editar Publicaciones</a>
+    </li>
+    <li ng-if="role == 'administrador'"ui-sref-active="active">
+        <a ui-sref="">Templates</a>
+    </li>
+    <li ng-if="role == 'administrador'" ui-sref-active="active">
+    	<a ui-sref="">Administración de Usuarios</a>
+    </li>
+    <li ng-if="role == 'docente' || role == 'administrador'" ui-sref-active="active">
+    	<a ui-sref="operacion">Todas las Carteleras</a>
+    </li>
+</ul>

@@ -51,7 +51,8 @@ angular.module('carteleraApp', [
             })
         .state('docente', {
                 url: '/docente',
-                templateUrl: 'docente/menu.html',
+                templateUrl: 'docente/menuDocente.html',
+//                templateUrl: 'operacion/menuOperacion.html',
                 controller: 'DocenteController',
             })
          .state('operacion', {
@@ -62,7 +63,7 @@ angular.module('carteleraApp', [
 
 })
 
-.run(function($rootScope, $http, $location, $localStorage, AuthenticationService) {
+.run(function($rootScope, $http, $location, $localStorage, AuthenticationService, $state) {
 	
 	//obtener el rol al iniciar la aplicación
 	//validar el rol al cambiar de estado
@@ -84,13 +85,22 @@ angular.module('carteleraApp', [
             $rootScope.loggedIn = false;
 
         }
-        //Está logueado, validar el token por si intenta acceder a una página restringida
+        //Está logueado, validar el token, si es válido ver si puede acceder
         else if($localStorage.currentUser){
         	if(!AuthenticationService.validateToken($localStorage.currentUser.username)){
-        		$location.path('/login');
-        		$rootScope.loggedIn = false;
+           			$location.path('/login');
+        			$rootScope.loggedIn = false;
+
         	}
-        }
+        	else
+        		/*A operación pueden acceder todos los pefiles porque visualizan las carteleras según
+        		 los permisos del usuario.*/
+        		if(!$location.path() == $rootScope.role || !$location.path() !== 'operacion' ){
+        			$location.path('/login');
+        			$rootScope.loggedIn = false;
+        		}
+       	}
+
         
     });
 })

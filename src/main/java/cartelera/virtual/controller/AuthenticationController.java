@@ -58,7 +58,8 @@ public class AuthenticationController {
 				claims.put("created", cal.getTime());
 				cal.add(Calendar.HOUR_OF_DAY, expirationHours);
 				claims.put("expiration", cal.getTime());
-
+				//guardar el rol para validar el ruteo
+//				claims.put("role", loginUser.getPerfil().toLowerCase());
 				if(loginUser.getPerfil().equals("ALUMNO")){
 					AlumnoDTO guaraniAlumno = guaraniBO.alumnoLogin(login.getUsername(), login.getPassword());
 					claims.put("username", guaraniAlumno.getNombreUsuario());	//Tomamos el nombre de usuario de Guaraní
@@ -73,9 +74,12 @@ public class AuthenticationController {
 				}
 				token = URLEncoder
 						.encode(Jwts.builder().setClaims(claims).signWith(SignatureAlgorithm.HS512, secret).compact());
+				login.setToken(token);
+				//guardar el ruteo para ir al estado correspondiente y validar permisos del menú
+				login.setRole(loginUser.getPerfil().toLowerCase());
 			}
 
-			return new ResponseEntity<String>(token, HttpStatus.OK);
+			return new ResponseEntity<LoginInfoDTO>(login, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			ResponseError error = new ResponseError();

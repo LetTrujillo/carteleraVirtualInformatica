@@ -2,9 +2,17 @@
 'use strict';
 
     angular.module('Docente')
-        .controller('DocenteController', function($scope, $state, $stateParams, $location, AuthenticationService, $localStorage, $http){
+        .controller('DocenteController', function($scope, $state, $stateParams, $location, $localStorage, $http, OperacionService){
 
-        $scope.nombre = "Acá va el menú de docente";
+        	OperacionService.getAllOperacionesByUser($localStorage.currentUser.username).then( function (result) {
+                if (result != null && result != '') {
+                	$scope.operaciones = result.data;
+                	$scope.usuario = result.data[0].usuario 
+//                	$state.go('docente');
+                } else {
+                	$scope.operaciones = null;
+                }
+            });
 
 
    })
