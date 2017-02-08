@@ -95,7 +95,7 @@ angular.module('carteleraApp', [
         	else
         		/*A operación pueden acceder todos los pefiles porque visualizan las carteleras según
         		 los permisos del usuario.*/
-        		if(!$location.path() == $rootScope.role || !$location.path() !== 'operacion' ){
+        		if(!$location.path() == $rootScope.role && !$location.path() !== 'operacion' ){
         			$location.path('/login');
         			$rootScope.loggedIn = false;
         		}
