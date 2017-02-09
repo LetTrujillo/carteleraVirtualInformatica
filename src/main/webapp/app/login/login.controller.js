@@ -29,7 +29,10 @@
                  		else
 					//por ahora va a operación. La idea es rutear cada perfil a su "menú", como docente.
                  			if("alumno" == $rootScope.role)
-                     			$state.go('operacion');
+                     			$state.go('alumno');
+                 			else 
+                 				if("administrador" == $rootScope.role)
+                 					$state.go('alumno');
                  	}else
                  		$state.go('operacion');
                  }

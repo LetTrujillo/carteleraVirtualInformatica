@@ -51,12 +51,19 @@ angular.module('carteleraApp', [
             })
         .state('docente', {
                 url: '/docente',
-                templateUrl: 'docente/menuDocente.html',
-//                templateUrl: 'operacion/menuOperacion.html',
-                controller: 'DocenteController',
+//                templateUrl: 'docente/menuDocente.html',
+                templateUrl: 'operacion/menuOperacion.html',
+//                controller: 'DocenteController',
+                controller: 'OperacionController',
+                
             })
          .state('operacion', {
                 url: '/operacion',
+                templateUrl: 'operacion/menuOperacion.html',
+                controller: 'OperacionController',
+            })
+         .state('administrador', {
+                url: '/administrador',
                 templateUrl: 'operacion/menuOperacion.html',
                 controller: 'OperacionController',
             })

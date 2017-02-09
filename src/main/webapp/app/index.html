@@ -34,10 +34,10 @@
 				</div>
 			</div>
 		</nav>
-		<div ng-show="loggedIn && (role == 'docente' || role == 'administrador')" class="col-sm-3 col-md-3 col-lg-3 sidebar left">
+		<div ng-show="loggedIn && (role == 'docente' || role == 'administrador')" class="col-sm-3 col-md-2 col-lg-3 sidebar left">
               	<div ng-include="'sidebar/sidebar.html'"></div>
         </div>
-		<div class="container text-center contenido">
+		<div class="container text-center contenido col-md-10">
 			<div class="row">
 				<ui-view></ui-view>
 			</div>
