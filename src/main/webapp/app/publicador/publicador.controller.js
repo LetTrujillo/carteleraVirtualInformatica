@@ -1,8 +1,8 @@
 (function(){
 'use strict';
 
-    angular.module('Docente')
-        .controller('DocenteController', function($scope, $localStorage, OperacionService){
+    angular.module('Publicador')
+        .controller('PublicadorController', function($scope, $localStorage, OperacionService){
 
         	OperacionService.getAllOperacionesByUser($localStorage.currentUser.username).then( function (result) {
                 if (result != null && result != '') {
@@ -12,8 +12,6 @@
                 	$scope.operaciones = null;
                 }
             });
-
-
-   })
+    })
         
 })();

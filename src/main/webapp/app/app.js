@@ -6,6 +6,8 @@ angular.module('Alumno', []);
 angular.module('Docente', []);
 angular.module('Authentication', []);
 angular.module('Operacion', []);
+angular.module('Publicador', []);
+angular.module('Administrador', []);
 
 
 
@@ -23,7 +25,9 @@ angular.module('carteleraApp', [
      'Alumno',
      'Docente',
      'Authentication',
-     'Operacion'
+     'Operacion',
+     'Administrador',
+     'Publicador'
 ])
 
 .constant('config', {
@@ -46,12 +50,12 @@ angular.module('carteleraApp', [
         })
         .state('alumno', {
                 url: '/alumno',
-                templateUrl: 'alumno/menu.html',
+                templateUrl: 'alumno/home.html',
                 controller: 'AlumnoController',
             })
         .state('docente', {
                 url: '/docente',
-                templateUrl: 'docente/menuDocente.html',
+                templateUrl: 'docente/home.html',
                 controller: 'DocenteController',
                 
             })
@@ -62,23 +66,28 @@ angular.module('carteleraApp', [
             })
          .state('administrador', {
                 url: '/administrador',
-                templateUrl: 'operacion/menuOperacion.html',
-                controller: 'OperacionController',
+                templateUrl: 'administrador/home.html',
+                controller: 'AdministradorController',
+            })
+           .state('publicador', {
+                url: '/publicador',
+                templateUrl: 'publicador/home.html',
+                controller: 'PublicadorController',
             })
 
 })
 
-.run(function($rootScope, $http, $location, $localStorage, AuthenticationService, $state) {
+.run(function($rootScope, $http, $location, $localStorage, AuthenticationService, config) {
 	
 	//obtener el rol al iniciar la aplicación
 	//validar el rol al cambiar de estado
 	
 	
     // mantener usuario 
-    if ($localStorage.currentUser) {
-        $http.defaults.headers.common.Authorization = $localStorage.token;
-
-    }
+//    if ($localStorage.currentUser) {
+//        $http.defaults.headers.common.Authorization = $localStorage.token;
+//
+//    }
     
     //validar autenticación al cambiar de estado
     $rootScope.$on('$locationChangeStart', function (event, next, current) {
@@ -92,19 +101,36 @@ angular.module('carteleraApp', [
         }
         //Está logueado, validar el token, si es válido ver si puede acceder
         else if($localStorage.currentUser){
-        	if(!AuthenticationService.validateToken($localStorage.currentUser.username)){
-           			$location.path('/login');
+        	
+        AuthenticationService.validateToken($localStorage.currentUser.username).then( function (result) {
+        		if(!result){
+					$location.path('/login');
         			$rootScope.loggedIn = false;
-
-        	}
-        	else
-        		/*A operación pueden acceder todos los pefiles porque visualizan las carteleras según
-        		 los permisos del usuario.*/
-        		if(!$location.path() == $rootScope.role && !$location.path() !== 'operacion' ){
-        			$location.path('/login');
-        			$rootScope.loggedIn = false;
+				}
+        		else{
+        			/*Se valida que no ingrese a una página de otro rol.*/
+            		if(!$location.path() == $rootScope.role){
+            			$location.path('/login');
+            			$rootScope.loggedIn = false;
+            		}
         		}
-       	}
+        	});
+        	
+//        	$http.post(config.ctxPath+'/authentication/validate')
+//			.then(function(result) {
+//				if(!result){
+//					$location.path('/login');
+//					$rootScope.loggedIn = false;
+//				}
+//			});
+        }
+//        	else
+//        		/*Se valida que no ingrese a una página de otro rol.*/
+//        		if(!$location.path() == $rootScope.role){
+//        			$location.path('/login');
+//        			$rootScope.loggedIn = false;
+//        		}
+       
 
         
     });

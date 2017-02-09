@@ -27,14 +27,16 @@
                  		if("docente" == $rootScope.role)
                  			$state.go('docente');
                  		else
-					//por ahora va a operación. La idea es rutear cada perfil a su "menú", como docente.
                  			if("alumno" == $rootScope.role)
                      			$state.go('alumno');
                  			else 
                  				if("administrador" == $rootScope.role)
-                 					$state.go('alumno');
+                 					$state.go('administrador');
+                 				else
+                 					if("publicador" == $rootScope.role)
+                     					$state.go('publicador');
                  	}else
-                 		$state.go('operacion');
+                 		$state.go('login');
                  }
             	else {
                 	$scope.error = 'Nombre de usuario o contraseña incorrectos';
