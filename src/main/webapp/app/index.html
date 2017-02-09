@@ -22,22 +22,17 @@
 					<a class="navbar-brand" href="#">Cartelera Virtual - UNLP</a>
 				</div>
 				<div class="collapse navbar-collapse" id="myNavbar">
-					<ul class="nav navbar-nav">
-						<li class="active"><a href="#">Home</a></li>
-					</ul>
+					<div ng-if="loggedIn" ng-include="'menu/menu.html'"></div>
 					<ul class="nav navbar-nav navbar-right">
 						<li ng-hide="loggedIn"><a href="#!login"><span class="glyphicon glyphicon-log-in"></span>
 								Login</a></li>
 						<li ng-show="loggedIn"><a href="#/login"><span class="glyphicon glyphicon-log-out"></span>
-						Logout</a></li>
+								Logout</a></li>
 					</ul>
 				</div>
 			</div>
 		</nav>
-		<div ng-show="loggedIn && (role == 'docente' || role == 'administrador')" class="col-sm-3 col-md-2 col-lg-3 sidebar left">
-              	<div ng-include="'sidebar/sidebar.html'"></div>
-        </div>
-		<div class="container text-center contenido col-md-10">
+		<div class="container text-center contenido col-md-12">
 			<div class="row">
 				<ui-view></ui-view>
 			</div>
