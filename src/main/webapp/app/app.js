@@ -9,11 +9,6 @@ angular.module('Operacion', []);
 angular.module('Publicador', []);
 angular.module('Administrador', []);
 
-
-
-//Mientras el cliente posea un token válido, puede ser considerado "autenticado". 
-//Podemos persistir este estado en varias visitas de página almacenando el JWT usando localStorage.
-
 angular.module('carteleraApp', [
 	// Extras
 	'ui.router',
@@ -36,7 +31,8 @@ angular.module('carteleraApp', [
     ctxPath:  '/CarteleraVirtualInformatica/api',
     pageSize: 20
 })
-.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
+.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $qProvider) {
+	
 	
     // ruta por defecto
     $urlRouterProvider.otherwise("/login");
@@ -74,23 +70,30 @@ angular.module('carteleraApp', [
                 templateUrl: 'publicador/home.html',
                 controller: 'PublicadorController',
             })
+            .state('validate', {
+            url: '/validate/:toState',
+//            templateUrl: 'login/login.html',
+            controller: 'ValidateController',
+        });
+    
+    $qProvider.errorOnUnhandledRejections(false);
 
 })
 
-.run(function($rootScope, $http, $location, $localStorage, AuthenticationService, config) {
+.run(function($rootScope, $http, $location, $localStorage, AuthenticationService, config, $state) {
 	
 	//obtener el rol al iniciar la aplicación
 	//validar el rol al cambiar de estado
 	
 	
     // mantener usuario 
-//    if ($localStorage.currentUser) {
-//        $http.defaults.headers.common.Authorization = $localStorage.token;
-//
-//    }
+    if ($localStorage.currentUser) {
+        $http.defaults.headers.common.Authorization = $localStorage.token;
+
+    }
     
     //validar autenticación al cambiar de estado
-    $rootScope.$on('$locationChangeStart', function (event, next, current) {
+    $rootScope.$on("$stateChangeStart", function (event, next, current) { //'$locationChangeStart'
         var publicPages = ['/login'];
         var restrictedPage = publicPages.indexOf($location.path()) === -1;
         //Si no está logueado e intenta acceder a una página restringida
@@ -100,39 +103,10 @@ angular.module('carteleraApp', [
 
         }
         //Está logueado, validar el token, si es válido ver si puede acceder
-        else if($localStorage.currentUser){
-        	
-        AuthenticationService.validateToken($localStorage.currentUser.username).then( function (result) {
-        		if(!result){
-					$location.path('/login');
-        			$rootScope.loggedIn = false;
-				}
-        		else{
-        			/*Se valida que no ingrese a una página de otro rol.*/
-            		if(!$location.path() == $rootScope.role){
-            			$location.path('/login');
-            			$rootScope.loggedIn = false;
-            		}
-        		}
-        	});
-        	
-//        	$http.post(config.ctxPath+'/authentication/validate')
-//			.then(function(result) {
-//				if(!result){
-//					$location.path('/login');
-//					$rootScope.loggedIn = false;
-//				}
-//			});
+        else if($localStorage.currentUser && next.name !== 'validate'){
+        	$location.path('/validate/'+next.name);
         }
-//        	else
-//        		/*Se valida que no ingrese a una página de otro rol.*/
-//        		if(!$location.path() == $rootScope.role){
-//        			$location.path('/login');
-//        			$rootScope.loggedIn = false;
-//        		}
-       
-
-        
+   
     });
 })
 

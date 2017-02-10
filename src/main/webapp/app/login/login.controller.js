@@ -48,5 +48,23 @@
                 	$scope.loading = false;
                 });
         };
+})
+.controller('ValidateController', function($scope, $state, $stateParams, $location, AuthenticationService, $localStorage, $http, $rootScope){
+	
+	AuthenticationService.validateToken($localStorage.currentUser.username).then( function (result) {
+ 		if(!result){
+			$state.go('login');
+ 			$rootScope.loggedIn = false;
+			}
+ 		else{
+ 			/*Se valida que no ingrese a una página de otro rol.*/
+     		if(!($state.params.toState == $rootScope.role)){
+     			$state.go('login');
+     			$rootScope.loggedIn = false;
+     		}
+     		else
+     			$state.go($state.params.toState);
+ 		}
+ 	});
 });     
 })();
